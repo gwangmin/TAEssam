@@ -26,12 +26,24 @@
             background-color: #e7f3ff;
             border-left: 4px solid #0d6efd;
         }
+
+        /* 로고 이미지 스타일 */
+        .logo-img {
+            max-width: 200px; /* 로고의 최대 너비 설정 */
+            height: auto;     /* 높이는 비율에 맞게 자동 조절 */
+        }
     </style>
 </head>
 <body>
-    <div class="container mt-5">
+    <div class="container mt-5 my-5">
         <div class="row justify-content-center">
             <div class="col-lg-8 col-md-10">
+
+                <!-- 로고 -->
+                <div class="text-center mb-4">
+                    <img src="logo.png" alt="TAESSAM HealthCare Labs" class="logo-img">
+                </div>
+
                 <!-- 헤더 -->
                 <div class="text-center mb-4">
                     <h2 class="fw-bold text-primary">심박수 계산기</h2>
@@ -142,7 +154,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <ul class="list-unstyled">
-                                        <li><span class="badge bg-orange me-2">70-80%</span>심폐지구력 향상</li>
+                                        <li><span class="badge bg-info me-2">70-80%</span>심폐지구력 향상</li>
                                         <li><span class="badge bg-danger me-2">80-90%</span>무산소 운동</li>
                                         <li><span class="badge bg-dark me-2">90%+</span>최대 강도</li>
                                     </ul>
