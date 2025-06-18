@@ -53,7 +53,7 @@
                                 <div class="col-sm-8">
                                     <div class="input-group">
                                         <input type="number" class="form-control" id="age" name="age" 
-                                               placeholder="나이를 입력하세요" min="1" max="120" required>
+                                               placeholder="나이를 입력하세요" min="1" max="120" oninput="calcHrMax();" required>
                                         <span class="input-group-text">세</span>
                                     </div>
                                 </div>
@@ -95,7 +95,7 @@
                             <!-- 계산 버튼 -->
                             <div class="text-center">
                                 <button type="button" class="btn btn-primary btn-lg px-5" onclick="calc();">
-                                    <i class="fas fa-calculator me-2"></i>계산하기
+                                    <i class="fas fa-calculator me-2"></i>목표 심박수 계산
                                 </button>
                             </div>
                         </form>
@@ -162,6 +162,17 @@
             document.getElementById('intensity_value').textContent = intensity;
         }
 
+        function calcHrMax() {
+            const age = parseFloat(document.getElementById('age').value);
+            if (!age || age <= 0) {
+                return;
+            }
+            console.log('나이:', age);
+            // 최대 심박수 계산 (Tanaka 공식: 208 - 0.7 × 나이)
+            const hr_max = Math.round(208 - (0.7 * age));
+            document.getElementById('hr_max').textContent = hr_max;
+        }
+
         // 심박수 계산 함수
         function calc() {
             // 입력값 검증
@@ -171,14 +182,6 @@
             // 입력값이 비어있거나 유효하지 않은 경우 처리
             if (!age || !hr_stable || age <= 0 || hr_stable <= 0) {
                 alert('나이와 안정시 심박수를 올바르게 입력해주세요.');
-                return;
-            }            
-            if (age > 120 || age < 1) {
-                alert('나이는 1세에서 120세 사이로 입력해주세요.');
-                return;
-            }
-            if (hr_stable < 40 || hr_stable > 120) {
-                alert('안정시 심박수는 40-120 bpm 사이로 입력해주세요.');
                 return;
             }
             console.log('나이:', age);
