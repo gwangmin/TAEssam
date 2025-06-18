@@ -1,0 +1,21 @@
+body {
+    background-color: #f8f9fa;
+}
+.card {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+.intensity-display {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #0d6efd;
+}
+.result-section {
+    background-color: #e7f3ff;
+    border-left: 4px solid #0d6efd;
+}
+
+/* 로고 이미지 스타일 */
+.logo-img {
+    max-width: 200px; /* 로고의 최대 너비 설정 */
+    height: auto;     /* 높이는 비율에 맞게 자동 조절 */
+}

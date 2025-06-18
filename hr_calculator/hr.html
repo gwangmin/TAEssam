@@ -8,31 +8,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>심박수 계산기</title>
+    <link href="hr.css" rel="stylesheet">
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous" defer></script>
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
-        .card {
-            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-        }
-        .intensity-display {
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: #0d6efd;
-        }
-        .result-section {
-            background-color: #e7f3ff;
-            border-left: 4px solid #0d6efd;
-        }
-
-        /* 로고 이미지 스타일 */
-        .logo-img {
-            max-width: 200px; /* 로고의 최대 너비 설정 */
-            height: auto;     /* 높이는 비율에 맞게 자동 조절 */
-        }
-    </style>
 </head>
 <body>
     <div class="container mt-5 my-5">
@@ -167,68 +146,6 @@
         </div>
     </div>
 
-    <script type="text/javascript">
-        // 운동 강도 실시간 표시 업데이트 함수
-        function updateIntensityDisplay() {
-            let intensity = document.getElementById('exercise_intensity').value;
-            document.getElementById('intensity_value').textContent = intensity;
-        }
-
-        function calcHrMax() {
-            const age = parseFloat(document.getElementById('age').value);
-            if (!age || age <= 0) {
-                return;
-            }
-            console.log('나이:', age);
-            // 최대 심박수 계산 (Tanaka 공식: 208 - 0.7 × 나이)
-            const hr_max = Math.round(208 - (0.7 * age));
-            document.getElementById('hr_max').textContent = hr_max;
-        }
-
-        // 심박수 계산 함수
-        function calc() {
-            // 입력값 검증
-            const age = parseFloat(document.getElementById('age').value);
-            const hr_stable = parseFloat(document.getElementById('hr_stable').value);
-            const exercise_intensity = parseFloat(document.getElementById('exercise_intensity').value) / 100;
-            // 입력값이 비어있거나 유효하지 않은 경우 처리
-            if (!age || !hr_stable || age <= 0 || hr_stable <= 0) {
-                alert('나이와 안정시 심박수를 올바르게 입력해주세요.');
-                return;
-            }
-            console.log('나이:', age);
-            console.log('안정시 심박수:', hr_stable);
-            console.log('운동 강도:', exercise_intensity);
-            
-            // 최대 심박수 계산 (Tanaka 공식: 208 - 0.7 × 나이)
-            const hr_max = Math.round(208 - (0.7 * age));
-            // 목표 심박수 계산 (Karvonen 공식)
-            const hr_goal = Math.round((hr_max - hr_stable) * exercise_intensity + hr_stable);
-            console.log('최대 심박수:', hr_max);
-            console.log('목표 심박수:', hr_goal);
-            
-            // 결과 표시
-            document.getElementById('hr_max').textContent = hr_max;
-            document.getElementById('hr_goal').textContent = hr_goal;
-            
-            // 결과 카드로 스크롤
-            document.querySelector('.result-section').scrollIntoView({ 
-                behavior: 'smooth', 
-                block: 'center' 
-            });
-        }
-        
-        // 페이지 로드 시 초기 강도 표시 설정
-        document.addEventListener('DOMContentLoaded', function() {
-            updateIntensityDisplay();
-        });
-        
-        // 엔터키로도 계산 가능하도록 설정
-        document.addEventListener('keypress', function(event) {
-            if (event.key === 'Enter') {
-                calc();
-            }
-        });
-    </script>
+    <script type="text/javascript" src="hr.js"></script>
 </body>
 </html>
