@@ -23,7 +23,7 @@ function calc() {
     const exercise_intensity = parseFloat(document.getElementById('exercise_intensity').value) / 100;
     // 입력값이 비어있거나 유효하지 않은 경우 처리
     if (!age || !hr_stable || age <= 0 || hr_stable <= 0) {
-        alert('나이와 안정시 심박수를 올바르게 입력해주세요.');
+        alert('나이와 안정 시 심박수를 올바르게 입력해주세요.');
         return;
     }
     console.log('나이:', age);
@@ -32,7 +32,7 @@ function calc() {
     
     // 최대 심박수 계산 (Tanaka 공식: 208 - 0.7 × 나이)
     const hr_max = Math.round(208 - (0.7 * age));
-    // 목표 심박수 계산 (Karvonen 공식)
+    // 목표 심박수 계산 (Karvonen 공식: (최대심박수-안정시심박수) * 운동강도 + 안정시심박수)
     const hr_goal = Math.round((hr_max - hr_stable) * exercise_intensity + hr_stable);
     console.log('최대 심박수:', hr_max);
     console.log('목표 심박수:', hr_goal);

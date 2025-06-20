@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TAEssam</title>
+    <script src="utils.js"></script>
 </head>
 <body>
     <script>
-        location.href = 'hr_calculator/hr.html'
+        let lang_code = get_browser_lang();
+        location.href = 'hr_calculator/' + lang_code + '/hr.html'
     </script>
 </body>
 </html>
