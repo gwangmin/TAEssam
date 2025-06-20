@@ -23,7 +23,7 @@ function calc() {
     const exercise_intensity = parseFloat(document.getElementById('exercise_intensity').value) / 100;
     // 입력값이 비어있거나 유효하지 않은 경우 처리
     if (!age || !hr_stable || age <= 0 || hr_stable <= 0) {
-        alert('나이와 안정 시 심박수를 올바르게 입력해주세요.');
+        alert('나이와 안정 시 심박수를 올바르게 입력해주세요.\nPlease enter your age and resting heart rate correctly.');
         return;
     }
     console.log('나이:', age);

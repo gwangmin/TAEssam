@@ -1,0 +1,174 @@
+<!--
+최대심박수 공식 - https://www.youtube.com/shorts/UNhrtY30trE
+-->
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart rate calculator</title>
+    <link href="../common/hr.css" rel="stylesheet">
+    <script type="text/javascript" src="../common/hr.js"></script>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous" defer></script>
+    <!-- for tooltip -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container mt-5 my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10">
+
+                <!-- 로고 -->
+                <div class="text-center mb-4">
+                    <img src="../common/logo.png" alt="TAESSAM HealthCare Labs" class="logo-img">
+                </div>
+
+                <!-- 헤더 -->
+                <div class="text-center mb-4">
+                    <h2 class="fw-bold text-primary">Heart rate calculator</h2>
+                    <p class="text-muted">Enter your age and resting heart rate to calculate your target heart rate</p>
+                </div>
+
+                <!-- 메인 폼 카드 -->
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-heartbeat me-2"></i>Input form
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <!-- 나이 입력 -->
+                            <div class="row mb-3">
+                                <label for="age" class="col-sm-4 col-form-label fw-semibold">Age:</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" id="age" name="age" 
+                                               placeholder="Please enter your age" min="1" max="120" oninput="calcHrMax();" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 안정 시 심박수 입력 -->
+                            <div class="row mb-3">
+                                <label for="hr_stable" class="col-sm-4 col-form-label fw-semibold">Resting heart rate:</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" id="hr_stable" name="hr_stable" 
+                                               placeholder="Enter your resting heart rate" min="10" max="200" required>
+                                        <span class="input-group-text">bpm</span>
+                                    </div>
+                                    <div class="form-text">Typically in the range of 60-100 bpm</div>
+                                </div>
+                            </div>
+
+                            <!-- 운동 강도 슬라이더 -->
+                            <div class="row mb-4">
+                                <label for="exercise_intensity" class="col-sm-4 col-form-label fw-semibold">Desired exercise intensity:</label>
+                                <div class="col-sm-8">
+                                    <div class="d-flex align-items-center">
+                                        <input type="range" class="form-range me-3" 
+                                               min="40" max="90" step="5" value="40" 
+                                               id="exercise_intensity" name="exercise_intensity" 
+                                               oninput="updateIntensityDisplay()">
+                                        <div class="intensity-display">
+                                            <span id="intensity_value">40</span>%
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-between text-muted small">
+                                        <span>40% (light exercise)</span>
+                                        <span>90% (intense exercise)</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 계산 버튼 -->
+                            <div class="text-center">
+                                <button type="button" class="btn btn-primary btn-lg px-5" onclick="calc();">
+                                    <i class="fas fa-calculator me-2"></i>Calculating your target heart rate
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- 결과 표시 카드 -->
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-chart-line me-2"></i>Calculation results
+                        </h5>
+                    </div>
+                    <div class="card-body result-section">
+                        <div class="row text-center">
+                            <div class="col-md-6 mb-3">
+                                <div class="p-3 bg-white rounded border">
+                                    <h6 class="text-muted mb-2">Maximum heart rate
+                                        <!-- 툴팁을 표시할 '?' 아이콘 영역 -->
+                                        <span class="btn badge rounded-pill bg-secondary" 
+                                              data-bs-toggle="tooltip" 
+                                              data-bs-placement="top"
+                                              data-bs-title="Tanaka formula: 208 - 0.7 × age">?</span>
+                                    </h6>
+                                    <div class="h3 text-primary mb-0">
+                                        <span id="hr_max">-</span> <small class="text-muted">bpm</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="p-3 bg-white rounded border">
+                                    <h6 class="text-muted mb-2">Target heart rate
+                                        <!-- 툴팁을 표시할 '?' 아이콘 영역 -->
+                                        <span class="btn badge rounded-pill bg-secondary" 
+                                              data-bs-toggle="tooltip" 
+                                              data-bs-placement="top"
+                                              data-bs-title="Karvonen formula: (maximum heart rate - resting heart rate) * exercise intensity + resting heart rate">
+                                        ?</span>
+                                    </h6>
+                                    <div class="h3 text-success mb-0">
+                                        <span id="hr_goal">-</span> <small class="text-muted">bpm</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 운동 강도별 가이드 -->
+                        <div class="mt-4">
+                            <h6 class="fw-semibold mb-3">Guide to exercise intensity</h6>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <ul class="list-unstyled">
+                                        <li><span class="badge bg-light text-dark me-2">40-50%</span>Light exercise (warm-up)</li>
+                                        <li><span class="badge bg-primary me-2">50-60%</span>Fat burning zone</li>
+                                        <li><span class="badge bg-warning me-2">60-70%</span>Aerobic exercise</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <ul class="list-unstyled">
+                                        <li><span class="badge bg-info me-2">70-80%</span>Improve cardiopulmonary endurance</li>
+                                        <li><span class="badge bg-danger me-2">80-90%</span>Anaerobic exercise</li>
+                                        <li><span class="badge bg-dark me-2">90%+</span>Maximum strength</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Bootstrap 툴팁 활성화 스크립트 -->
+<script>
+    // 1. data-bs-toggle="tooltip" 속성을 가진 모든 요소를 선택합니다.
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+
+    // 2. 선택된 각 요소에 대해 Bootstrap Tooltip 인스턴스를 생성합니다.
+    //    이를 통해 툴팁 기능이 활성화됩니다.
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+</script>
+</body>
+</html>
