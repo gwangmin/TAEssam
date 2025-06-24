@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Heart rate calculator</title>
+    <title>Heart rate Calculator</title>
     <link href="../common/hr.css" rel="stylesheet">
     <script type="text/javascript" src="../common/hr.js"></script>
     <!-- Bootstrap css -->
@@ -39,7 +39,7 @@
 
                 <!-- 헤더 -->
                 <div class="text-center mb-4">
-                    <h2 class="fw-bold text-primary">Heart rate calculator</h2>
+                    <h2 class="fw-bold text-primary">Heart rate Calculator</h2>
                     <p class="text-muted">Enter your age and resting heart rate to calculate your target heart rate</p>
                 </div>
 
@@ -93,6 +93,27 @@
                                         <span>40% (light exercise)</span>
                                         <span>90% (intense exercise)</span>
                                     </div>
+
+                                    <!-- 운동 강도별 가이드 -->
+                                    <div class="mt-4">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <ul class="list-unstyled">
+                                                    <li><span class="badge bg-light text-dark me-2">40-50%</span>Light exercise (warm-up)</li>
+                                                    <li><span class="badge bg-primary me-2">50-60%</span>Fat burning zone</li>
+                                                    <li><span class="badge bg-warning me-2">60-70%</span>Aerobic exercise</li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <ul class="list-unstyled">
+                                                    <li><span class="badge bg-info me-2">70-80%</span>Improve cardiopulmonary endurance</li>
+                                                    <li><span class="badge bg-danger me-2">80-90%</span>Anaerobic exercise</li>
+                                                    <li><span class="badge bg-dark me-2">90%+</span>Maximum strength</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
 
@@ -136,33 +157,11 @@
                                         <span class="btn badge rounded-pill bg-secondary" 
                                               data-bs-toggle="tooltip" 
                                               data-bs-placement="top"
-                                              data-bs-title="Karvonen formula: (maximum heart rate - resting heart rate) * exercise intensity + resting heart rate">
-                                        ?</span>
+                                              data-bs-title="Karvonen formula: (maximum heart rate - resting heart rate) * exercise intensity + resting heart rate">?</span>
                                     </h6>
                                     <div class="h3 text-success mb-0">
                                         <span id="hr_goal">-</span> <small class="text-muted">bpm</small>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- 운동 강도별 가이드 -->
-                        <div class="mt-4">
-                            <h6 class="fw-semibold mb-3">Guide to exercise intensity</h6>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <ul class="list-unstyled">
-                                        <li><span class="badge bg-light text-dark me-2">40-50%</span>Light exercise (warm-up)</li>
-                                        <li><span class="badge bg-primary me-2">50-60%</span>Fat burning zone</li>
-                                        <li><span class="badge bg-warning me-2">60-70%</span>Aerobic exercise</li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-6">
-                                    <ul class="list-unstyled">
-                                        <li><span class="badge bg-info me-2">70-80%</span>Improve cardiopulmonary endurance</li>
-                                        <li><span class="badge bg-danger me-2">80-90%</span>Anaerobic exercise</li>
-                                        <li><span class="badge bg-dark me-2">90%+</span>Maximum strength</li>
-                                    </ul>
                                 </div>
                             </div>
                         </div>
