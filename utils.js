@@ -11,6 +11,7 @@ function get_browser_lang() {
             return 'ko';
         case 'en':
         case 'en-US':
+        default:
             return 'en';
     }
 }
