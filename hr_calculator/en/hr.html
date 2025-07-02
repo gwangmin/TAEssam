@@ -63,7 +63,7 @@
                                 <div class="col-sm-8">
                                     <div class="input-group">
                                         <input type="number" class="form-control" id="age" name="age" 
-                                               placeholder="Please enter your age" min="1" max="120" oninput="calcHrMax();" required>
+                                               placeholder="Please enter your age" min="1" max="120" oninput="updateHrMax();" required>
                                     </div>
                                 </div>
                             </div>
@@ -124,7 +124,7 @@
 
                             <!-- 계산 버튼 -->
                             <div class="text-center">
-                                <button type="button" class="btn btn-primary btn-lg px-5" onclick="calc();">
+                                <button type="button" class="btn btn-primary btn-lg px-5" onclick="updateHrGoal();">
                                     <i class="fas fa-calculator me-2"></i>Calculating your target heart rate
                                 </button>
                             </div>

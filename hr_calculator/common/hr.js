@@ -4,19 +4,33 @@ function updateIntensityDisplay() {
     document.getElementById('intensity_value').textContent = intensity;
 }
 
-function calcHrMax() {
-    const age = parseFloat(document.getElementById('age').value);
+/*
+최대 심박수 계산 함수
+age: float.
+return: hr_max
+*/
+function getHrMax(age) {
     if (!age || age <= 0) {
-        return;
+        return 0;
     }
     console.log('나이:', age);
     // 최대 심박수 계산 (Tanaka 공식: 208 - 0.7 × 나이)
-    const hr_max = Math.round(208 - (0.7 * age));
+    let hr_max = Math.round(208 - (0.7 * age));
+    if (hr_max < 0) {
+        hr_max = 0;
+    }
+    return hr_max;
+}
+
+// 최대 심박수 업데이트 함수
+function updateHrMax() {
+    const age = parseFloat(document.getElementById('age').value);
+    const hr_max = getHrMax(age);
     document.getElementById('hr_max').textContent = hr_max;
 }
 
-// 심박수 계산 함수
-function calc() {
+// 목표 심박수 계산 및 업데이트 함수
+function updateHrGoal() {
     // 입력값 검증
     const age = parseFloat(document.getElementById('age').value);
     const hr_stable = parseFloat(document.getElementById('hr_stable').value);
@@ -30,10 +44,13 @@ function calc() {
     console.log('안정시 심박수:', hr_stable);
     console.log('운동 강도:', exercise_intensity);
     
-    // 최대 심박수 계산 (Tanaka 공식: 208 - 0.7 × 나이)
-    const hr_max = Math.round(208 - (0.7 * age));
+    // 최대 심박수 계산
+    const hr_max = getHrMax(age);
     // 목표 심박수 계산 (Karvonen 공식: (최대심박수-안정시심박수) * 운동강도 + 안정시심박수)
-    const hr_goal = Math.round((hr_max - hr_stable) * exercise_intensity + hr_stable);
+    let hr_goal = Math.round((hr_max - hr_stable) * exercise_intensity + hr_stable);
+    if (hr_goal < 0) {
+        hr_goal = 0;
+    }
     console.log('최대 심박수:', hr_max);
     console.log('목표 심박수:', hr_goal);
     
@@ -56,6 +73,6 @@ document.addEventListener('DOMContentLoaded', function() {
 // 엔터키로도 계산 가능하도록 설정
 document.addEventListener('keypress', function(event) {
     if (event.key === 'Enter') {
-        calc();
+        updateHrGoal();
     }
 });

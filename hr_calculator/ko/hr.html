@@ -63,7 +63,7 @@
                                 <div class="col-sm-8">
                                     <div class="input-group">
                                         <input type="number" class="form-control" id="age" name="age" 
-                                               placeholder="나이를 입력하세요" min="1" max="120" oninput="calcHrMax();" required>
+                                               placeholder="나이를 입력하세요" min="1" max="120" oninput="updateHrMax();" required>
                                         <span class="input-group-text">세</span>
                                     </div>
                                 </div>
@@ -125,7 +125,7 @@
 
                             <!-- 계산 버튼 -->
                             <div class="text-center">
-                                <button type="button" class="btn btn-primary btn-lg px-5" onclick="calc();">
+                                <button type="button" class="btn btn-primary btn-lg px-5" onclick="updateHrGoal();">
                                     <i class="fas fa-calculator me-2"></i>목표 심박수 계산
                                 </button>
                             </div>
