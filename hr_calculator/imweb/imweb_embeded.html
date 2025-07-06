@@ -1,0 +1,341 @@
+<!--
+<iframe src="https://gwangmin.github.io/TAEssam/" width="100%" height="1000px"></iframe>
+-->
+
+<!-- Bootstrap css -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+
+<!-- 언어 선택 -->
+<div class="d-flex justify-content-end align-items-start">
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="hr_languages" data-bs-toggle="dropdown" aria-expanded="false">
+            언어 선택
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="languages">
+            <li><a class="dropdown-item" href="javascript:hr_lang_ko();">한국어</a></li>
+            <li><a class="dropdown-item" href="javascript:hr_lang_en();">English</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="container mt-5 my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+
+            <!-- 헤더 -->
+            <div class="text-center mb-4">
+                <h2 class="fw-bold text-primary" id="hr_header_title">심박수 계산기</h2>
+                <p class="text-muted" id="hr_header_text">나이와 안정 시 심박수를 입력하여 목표 심박수를 계산하세요</p>
+            </div>
+
+            <!-- 메인 폼 카드 -->
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-heartbeat me-2"></i><span id="hr_form_title">입력 정보</span>
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <!-- 나이 입력 -->
+                        <div class="row mb-3">
+                            <label for="hr_age" class="col-sm-4 col-form-label fw-semibold" id="hr_form_age">나이: </label>
+                            <div class="col-sm-8">
+                                <div class="input-group" id="hr_form_age_unit_group">
+                                    <input type="number" class="form-control" id="hr_age" name="hr_age" 
+                                        placeholder="나이를 입력하세요" min="1" max="120" oninput="updateHrMax();" required>
+                                    <span class="input-group-text" id="hr_form_age_unit">세</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 안정 시 심박수 입력 -->
+                        <div class="row mb-3">
+                            <label for="hr_stable" class="col-sm-4 col-form-label fw-semibold" id="hr_form_stable_title">안정 시 심박수: </label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="hr_stable" name="hr_stable" 
+                                        placeholder="안정시 심박수를 입력하세요" min="10" max="200" required>
+                                    <span class="input-group-text">bpm</span>
+                                </div>
+                                <div class="form-text" id="hr_form_stable_desc">일반적으로 60-100 bpm 범위입니다</div>
+                            </div>
+                        </div>
+
+                        <!-- 운동 강도 슬라이더 -->
+                        <div class="row mb-4">
+                            <label for="hr_exercise_intensity" class="col-sm-4 col-form-label fw-semibold" id="hr_form_exercise_intensity_title">운동 강도 설정: </label>
+                            <div class="col-sm-8">
+                                <div class="d-flex align-items-center">
+                                    <input type="range" class="form-range me-3" 
+                                        min="40" max="90" step="10" value="40" 
+                                        id="hr_exercise_intensity" name="hr_exercise_intensity" 
+                                        oninput="hrUpdateIntensityDisplay()">
+                                    <div class="intensity-display">
+                                        <span id="hr_intensity_value">40</span>%
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between text-muted small">
+                                    <span id="hr_form_exercise_intensity_s">40% (가벼운 운동)</span>
+                                    <span id="hr_form_exercise_intensity_e">90% (격렬한 운동)</span>
+                                </div>
+
+                                <!-- 운동 강도별 가이드 -->
+                                <div class="mt-4">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <ul class="list-unstyled">
+                                                <li><span class="badge bg-light text-dark me-2">40-50%</span><span id="hr_form_exercise_intensity_1">가벼운 운동 (웜업)</span></li>
+                                                <li><span class="badge bg-primary me-2">50-60%</span><span id="hr_form_exercise_intensity_2">지방 연소 구간</span></li>
+                                                <li><span class="badge bg-warning me-2">60-70%</span><span id="hr_form_exercise_intensity_3">유산소 운동</span></li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <ul class="list-unstyled">
+                                                <li><span class="badge bg-info me-2">70-80%</span><span id="hr_form_exercise_intensity_4">심폐지구력 향상</span></li>
+                                                <li><span class="badge bg-danger me-2">80-90%</span><span id="hr_form_exercise_intensity_5">무산소 운동</span></li>
+                                                <li><span class="badge bg-dark me-2">90%+</span><span id="hr_form_exercise_intensity_6">최대 강도</span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- 계산 버튼 -->
+                        <div class="text-center">
+                            <button type="button" class="btn btn-primary btn-lg px-5" onclick="updateHrGoal();">
+                                <i class="fas fa-calculator me-2"></i><span id="hr_form_btn">심박수 계산</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- 결과 표시 카드 -->
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-chart-line me-2"></i><span id="hr_result_title">계산 결과</span>
+                    </h5>
+                </div>
+                <div class="card-body result-section">
+                    <div class="row text-center">
+                        <div class="col-md-6 mb-3">
+                            <div class="p-3 bg-white rounded border">
+                                <h6 class="text-muted mb-2"><span id="hr_result_max">최대 심박수</span>
+                                    <!-- 툴팁을 표시할 '?' 아이콘 영역 -->
+                                    <span class="btn badge rounded-pill bg-secondary" 
+                                        data-bs-toggle="tooltip" 
+                                        data-bs-placement="top"
+                                        data-bs-title="Tanaka formula: 208 - 0.7 × age">?</span>
+                                </h6>
+                                <div class="h3 text-primary mb-0">
+                                    <span id="hr_max">-</span> <small class="text-muted">bpm</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="p-3 bg-white rounded border">
+                                <h6 class="text-muted mb-2"><span id="hr_result_target">목표 심박수</span>
+                                    <!-- 툴팁을 표시할 '?' 아이콘 영역 -->
+                                    <span class="btn badge rounded-pill bg-secondary" 
+                                        data-bs-toggle="tooltip" 
+                                        data-bs-placement="top"
+                                        data-bs-title="Karvonen formula: (maximum heart rate - resting heart rate) * exercise intensity + resting heart rate">?</span>
+                                </h6>
+                                <div class="h3 text-success mb-0">
+                                    <span id="hr_goal">-</span> <small class="text-muted">bpm</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap js -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+<!-- Bootstrap 툴팁 활성화 스크립트 -->
+<script>
+    // 1. data-bs-toggle="tooltip" 속성을 가진 모든 요소를 선택합니다.
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+
+    // 2. 선택된 각 요소에 대해 Bootstrap Tooltip 인스턴스를 생성합니다.
+    //    이를 통해 툴팁 기능이 활성화됩니다.
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+</script>
+
+
+<!-- custum css -->
+<style>
+body {
+    background-color: #f8f9fa;
+}
+.card {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+.intensity-display {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #0d6efd;
+}
+.result-section {
+    background-color: #e7f3ff;
+    border-left: 4px solid #0d6efd;
+}
+
+/* 로고 이미지 스타일 */
+.logo-img {
+    max-width: 200px; /* 로고의 최대 너비 설정 */
+    height: auto;     /* 높이는 비율에 맞게 자동 조절 */
+}
+</style>
+<!-- custum js -->
+<script type="text/javascript">
+const lang_ko = {
+    'hr_languages': '언어 선택',
+    'hr_header_title': '심박수 계산기',
+    'hr_header_text': '나이와 안정 시 심박수를 입력하여 목표 심박수를 계산하세요',
+    'hr_form_title': '입력 정보',
+    'hr_form_age': '나이: ',
+    'hr_form_stable_title': '안정 시 심박수: ',
+    'hr_form_stable_desc': '일반적으로 60-100 bpm 범위입니다',
+    'hr_form_exercise_intensity_title': '운동 강도 설정: ',
+    'hr_form_exercise_intensity_s': '40% (가벼운 운동)',
+    'hr_form_exercise_intensity_e': '90% (격렬한 운동)',
+    'hr_form_exercise_intensity_1': '가벼운 운동 (웜업)',
+    'hr_form_exercise_intensity_2': '지방 연소 구간',
+    'hr_form_exercise_intensity_3': '유산소 운동',
+    'hr_form_exercise_intensity_4': '심폐지구력 향상',
+    'hr_form_exercise_intensity_5': '무산소 운동',
+    'hr_form_exercise_intensity_6': '최대 강도',
+    'hr_form_btn': '심박수 계산',
+    'hr_result_title': '계산 결과',
+    'hr_result_max': '최대 심박수',
+    'hr_result_target': '목표 심박수',
+}
+const lang_en = {
+    'hr_languages': 'Languages',
+    'hr_header_title': 'Heart rate Calculator',
+    'hr_header_text': 'Enter your age and resting heart rate to calculate your target heart rate',
+    'hr_form_title': 'Input form',
+    'hr_form_age': 'Age: ',
+    'hr_form_stable_title': 'Resting heart rate: ',
+    'hr_form_stable_desc': 'Typically in the range of 60-100 bpm',
+    'hr_form_exercise_intensity_title': 'Desired exercise intensity: ',
+    'hr_form_exercise_intensity_s': '40% (light exercise)',
+    'hr_form_exercise_intensity_e': '90% (intense exercise)',
+    'hr_form_exercise_intensity_1': 'Light exercise (warm-up)',
+    'hr_form_exercise_intensity_2': 'Fat burning zone',
+    'hr_form_exercise_intensity_3': 'Aerobic exercise',
+    'hr_form_exercise_intensity_4': 'Improve cardiopulmonary endurance',
+    'hr_form_exercise_intensity_5': 'Anaerobic exercise',
+    'hr_form_exercise_intensity_6': 'Maximum strength',
+    'hr_form_btn': 'Calculating your target heart rate',
+    'hr_result_title': 'Calculation results',
+    'hr_result_max': 'Maximum heart rate',
+    'hr_result_target': 'Target heart rate',
+}
+
+// language setting func for ko
+function hr_lang_ko() {
+    for (let id_ in lang_ko) {
+        document.getElementById(id_).textContent = lang_ko[id_];
+    }
+    const unit_group = document.getElementById('hr_form_age_unit_group');
+    if (unit_group.childElementCount === 1) {
+        unit_group.innerHTML = unit_group.innerHTML + '<span class="input-group-text" id="hr_form_age_unit">세</span>';
+    }
+}
+
+// language setting func for en
+function hr_lang_en() {
+    for (let id_ in lang_en) {
+        document.getElementById(id_).textContent = lang_en[id_];
+    }
+    document.getElementById('hr_form_age_unit').remove();
+}
+
+// 운동 강도 실시간 표시 업데이트 함수
+function hrUpdateIntensityDisplay() {
+    let intensity = document.getElementById('hr_exercise_intensity').value;
+    document.getElementById('hr_intensity_value').textContent = intensity;
+}
+
+/*
+최대 심박수 계산 함수
+age: float.
+return: hr_max
+*/
+function getHrMax(age) {
+    if (!age || age <= 0) {
+        return 0;
+    }
+    console.log('나이:', age);
+    // 최대 심박수 계산 (Tanaka 공식: 208 - 0.7 × 나이)
+    let hr_max = Math.round(208 - (0.7 * age));
+    if (hr_max < 0) {
+        hr_max = 0;
+    }
+    return hr_max;
+}
+
+// 최대 심박수 업데이트 함수
+function updateHrMax() {
+    const age = parseFloat(document.getElementById('hr_age').value);
+    const hr_max = getHrMax(age);
+    document.getElementById('hr_max').textContent = hr_max;
+}
+
+// 목표 심박수 계산 및 업데이트 함수
+function updateHrGoal() {
+    // 입력값 검증
+    const age = parseFloat(document.getElementById('hr_age').value);
+    const hr_stable = parseFloat(document.getElementById('hr_stable').value);
+    const exercise_intensity = parseFloat(document.getElementById('hr_exercise_intensity').value) / 100;
+    // 입력값이 비어있거나 유효하지 않은 경우 처리
+    if (!age || !hr_stable || age <= 0 || hr_stable <= 0) {
+        alert('나이와 안정 시 심박수를 올바르게 입력해주세요.\nPlease enter your age and resting heart rate correctly.');
+        return;
+    }
+    console.log('나이:', age);
+    console.log('안정시 심박수:', hr_stable);
+    console.log('운동 강도:', exercise_intensity);
+    
+    // 최대 심박수 계산
+    const hr_max = getHrMax(age);
+    // 목표 심박수 계산 (Karvonen 공식: (최대심박수-안정시심박수) * 운동강도 + 안정시심박수)
+    let hr_goal = Math.round((hr_max - hr_stable) * exercise_intensity + hr_stable);
+    if (hr_goal < 0) {
+        hr_goal = 0;
+    }
+    console.log('최대 심박수:', hr_max);
+    console.log('목표 심박수:', hr_goal);
+    
+    // 결과 표시
+    document.getElementById('hr_max').textContent = hr_max;
+    document.getElementById('hr_goal').textContent = hr_goal;
+    
+    // 결과 카드로 스크롤
+    document.querySelector('.result-section').scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'center' 
+    });
+}
+
+// 페이지 로드 시 초기 강도 표시 설정
+document.addEventListener('DOMContentLoaded', function() {
+    hrUpdateIntensityDisplay();
+});
+
+// 엔터키로도 계산 가능하도록 설정
+document.addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        updateHrGoal();
+    }
+});
+</script>
