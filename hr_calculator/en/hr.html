@@ -33,6 +33,7 @@
         </div>
     </div>
 
+    <!-- 계산기 -->
     <div class="container mt-5 my-5">
         <div class="row justify-content-center">
             <div class="col-lg-8 col-md-10">
@@ -43,7 +44,7 @@
                     <p class="text-muted">Enter Your Age And Resting Heart Rate To Calculate Your Target Heart Rate</p>
                 </div>
 
-                <!-- 메인 폼 카드 -->
+                <!-- 입력 정보 -->
                 <div class="card mb-4">
                     <div class="card-header bg-primary text-white">
                         <h5 class="mb-0">
@@ -52,23 +53,23 @@
                     </div>
                     <div class="card-body">
                         <form>
-                            <!-- 나이 입력 -->
+                            <!-- age -->
                             <div class="row mb-3">
-                                <label for="age" class="col-sm-4 col-form-label fw-semibold">Age: </label>
+                                <label for="age_input" class="col-sm-4 col-form-label fw-semibold">Age: </label>
                                 <div class="col-sm-8">
                                     <div class="input-group">
-                                        <input type="number" class="form-control" id="age" name="age" 
-                                               placeholder="Please Enter Your Age" min="1" max="120" oninput="updateHrMax();" required>
+                                        <input type="number" class="form-control" id="age_input" name="age_input" 
+                                               placeholder="Please Enter Your Age" min="1" max="120" required>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- 안정 시 심박수 입력 -->
+                            <!-- hr_stable -->
                             <div class="row mb-3">
-                                <label for="hr_stable" class="col-sm-4 col-form-label fw-semibold">Resting Heart Rate: </label>
+                                <label for="hr_stable_input" class="col-sm-4 col-form-label fw-semibold">Resting Heart Rate: </label>
                                 <div class="col-sm-8">
                                     <div class="input-group">
-                                        <input type="number" class="form-control" id="hr_stable" name="hr_stable" 
+                                        <input type="number" class="form-control" id="hr_stable_input" name="hr_stable_input" 
                                                placeholder="Enter Your Resting Heart Rate" min="10" max="200" required>
                                         <span class="input-group-text">BPM</span>
                                     </div>
@@ -76,17 +77,17 @@
                                 </div>
                             </div>
 
-                            <!-- 운동 강도 슬라이더 -->
+                            <!-- exercise_intensity_slider -->
                             <div class="row mb-4">
-                                <label for="exercise_intensity" class="col-sm-4 col-form-label fw-semibold">Desired Exercise Intensity: </label>
+                                <label for="exercise_intensity_slider" class="col-sm-4 col-form-label fw-semibold">Desired Exercise Intensity: </label>
                                 <div class="col-sm-8">
                                     <div class="d-flex align-items-center">
                                         <input type="range" class="form-range me-3" 
                                                min="40" max="90" step="5" value="40" 
-                                               id="exercise_intensity" name="exercise_intensity" 
+                                               id="exercise_intensity_slider" name="exercise_intensity_slider" 
                                                oninput="updateIntensityDisplay()">
                                         <div class="intensity-display">
-                                            <span id="intensity_value">40</span>%
+                                            <span id="intensity_display">40</span>%
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-between text-muted small">
@@ -117,24 +118,24 @@
                                 </div>
                             </div>
 
-                            <!-- 계산 버튼 -->
+                            <!-- calc btn -->
                             <div class="text-center">
-                                <button type="button" class="btn btn-primary btn-lg px-5" onclick="updateHrGoal();">
-                                    <i class="fas fa-calculator me-2"></i>Calculating Your Target Heart Rate
+                                <button type="button" class="btn btn-primary btn-lg px-5" onclick="calc();">
+                                    <i class="fas fa-calculator me-2"></i>Calculating Your Heart Rate
                                 </button>
                             </div>
                         </form>
                     </div>
                 </div>
 
-                <!-- 결과 표시 카드 -->
-                <div class="card">
+                <!-- 계산 결과 -->
+                <div class="card result-section">
                     <div class="card-header bg-success text-white">
                         <h5 class="mb-0">
                             <i class="fas fa-chart-line me-2"></i>Calculation Results
                         </h5>
                     </div>
-                    <div class="card-body result-section">
+                    <div class="card-body">
                         <div class="row text-center">
                             <div class="col-md-6 mb-3">
                                 <div class="p-3 bg-white rounded border">
@@ -146,7 +147,7 @@
                                               data-bs-title="Tanaka Formula: 208 - 0.7 × Age">?</span>
                                     </h6>
                                     <div class="h3 text-primary mb-0">
-                                        <span id="hr_max">-</span> <small class="text-muted">BPM</small>
+                                        <span id="hr_max_value">-</span> <small class="text-muted">BPM</small>
                                     </div>
                                 </div>
                             </div>
@@ -160,7 +161,7 @@
                                               data-bs-title="Karvonen Formula: (Maximum Heart Rate - Resting Heart Rate) * Exercise Intensity + Resting Heart Rate">?</span>
                                     </h6>
                                     <div class="h3 text-success mb-0">
-                                        <span id="hr_goal">-</span> <small class="text-muted">BPM</small>
+                                        <span id="hr_goal_value">-</span> <small class="text-muted">BPM</small>
                                     </div>
                                 </div>
                             </div>

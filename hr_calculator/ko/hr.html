@@ -33,6 +33,7 @@
         </div>
     </div>
 
+    <!-- 계산기 -->
     <div class="container mt-5 my-5">
         <div class="row justify-content-center">
             <div class="col-lg-8 col-md-10">
@@ -43,7 +44,7 @@
                     <p class="text-muted">나이와 안정 시 심박수를 입력하여 목표 심박수를 계산하세요</p>
                 </div>
 
-                <!-- 메인 폼 카드 -->
+                <!-- 입력 정보 -->
                 <div class="card mb-4">
                     <div class="card-header bg-primary text-white">
                         <h5 class="mb-0">
@@ -52,42 +53,44 @@
                     </div>
                     <div class="card-body">
                         <form>
-                            <!-- 나이 입력 -->
+                            <!-- age -->
                             <div class="row mb-3">
-                                <label for="age" class="col-sm-4 col-form-label fw-semibold">나이: </label>
+                                <label for="age_input" class="col-sm-4 col-form-label fw-semibold">나이: </label>
                                 <div class="col-sm-8">
                                     <div class="input-group">
-                                        <input type="number" class="form-control" id="age" name="age" 
-                                               placeholder="나이를 입력하세요" min="1" max="120" oninput="updateHrMax();" required>
+                                        <input type="number" class="form-control" id="age_input" name="age_input" 
+                                               placeholder="나이를 입력하세요" min="1" max="120" required>
                                         <span class="input-group-text">세</span>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- 안정 시 심박수 입력 -->
+                            <!-- hr_stable -->
                             <div class="row mb-3">
-                                <label for="hr_stable" class="col-sm-4 col-form-label fw-semibold">안정 시 심박수: </label>
+                                <label for="hr_stable_input" class="col-sm-4 col-form-label fw-semibold">안정 시 심박수: </label>
                                 <div class="col-sm-8">
                                     <div class="input-group">
-                                        <input type="number" class="form-control" id="hr_stable" name="hr_stable" 
-                                               placeholder="안정시 심박수를 입력하세요" min="10" max="200" required>
-                                        <span class="input-group-text">bpm</span>
+                                        <input type="number" class="form-control" min="10" max="220"
+                                            placeholder="안정시 심박수를 입력하세요"
+                                            id="hr_stable_input" name="hr_stable_input" required>
+                                        <span class="input-group-text">BPM</span>
                                     </div>
-                                    <div class="form-text">일반적으로 60-100 bpm 범위입니다</div>
+                                    <div class="form-text">일반적으로 60-100 BPM 범위입니다</div>
                                 </div>
                             </div>
 
-                            <!-- 운동 강도 슬라이더 -->
+                            <!-- exercise_intensity_slider -->
                             <div class="row mb-4">
-                                <label for="exercise_intensity" class="col-sm-4 col-form-label fw-semibold">운동 강도 설정: </label>
+                                <label for="exercise_intensity_slider" 
+                                    class="col-sm-4 col-form-label fw-semibold">운동 강도 설정: </label>
                                 <div class="col-sm-8">
                                     <div class="d-flex align-items-center">
                                         <input type="range" class="form-range me-3" 
                                                min="40" max="90" step="5" value="40" 
-                                               id="exercise_intensity" name="exercise_intensity" 
+                                               id="exercise_intensity_slider" name="exercise_intensity_slider" 
                                                oninput="updateIntensityDisplay()">
                                         <div class="intensity-display">
-                                            <span id="intensity_value">40</span>%
+                                            <span id="intensity_display">40</span>%
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-between text-muted small">
@@ -118,24 +121,24 @@
                                 </div>
                             </div>
 
-                            <!-- 계산 버튼 -->
+                            <!-- calc btn -->
                             <div class="text-center">
-                                <button type="button" class="btn btn-primary btn-lg px-5" onclick="updateHrGoal();">
-                                    <i class="fas fa-calculator me-2"></i>목표 심박수 계산
+                                <button type="button" class="btn btn-primary btn-lg px-5" onclick="calc();">
+                                    <i class="fas fa-calculator me-2"></i>심박수 계산
                                 </button>
                             </div>
                         </form>
                     </div>
                 </div>
 
-                <!-- 결과 표시 카드 -->
-                <div class="card">
+                <!-- 계산 결과 -->
+                <div class="card result-section">
                     <div class="card-header bg-success text-white">
                         <h5 class="mb-0">
                             <i class="fas fa-chart-line me-2"></i>계산 결과
                         </h5>
                     </div>
-                    <div class="card-body result-section">
+                    <div class="card-body">
                         <div class="row text-center">
                             <div class="col-md-6 mb-3">
                                 <div class="p-3 bg-white rounded border">
@@ -147,7 +150,7 @@
                                               data-bs-title="Tanaka 공식: 208 - 0.7 × 나이">?</span>
                                     </h6>
                                     <div class="h3 text-primary mb-0">
-                                        <span id="hr_max">-</span> <small class="text-muted">bpm</small>
+                                        <span id="hr_max_value">-</span> <small class="text-muted">BPM</small>
                                     </div>
                                 </div>
                             </div>
@@ -161,7 +164,7 @@
                                               data-bs-title="Karvonen 공식: (최대심박수-안정시심박수) * 운동강도 + 안정시심박수">?</span>
                                     </h6>
                                     <div class="h3 text-success mb-0">
-                                        <span id="hr_goal">-</span> <small class="text-muted">bpm</small>
+                                        <span id="hr_goal_value">-</span> <small class="text-muted">BPM</small>
                                     </div>
                                 </div>
                             </div>
