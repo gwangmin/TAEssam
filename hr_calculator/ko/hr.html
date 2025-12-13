@@ -17,6 +17,8 @@
     <script type="text/javascript" src="../common/hr.js"></script>
     <!-- Bootstrap css -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
     <!-- 네비게이션 바 -->
@@ -166,6 +168,10 @@
                                     <div class="h3 text-primary mb-0">
                                         <span id="hr_max_value">-</span> <small class="text-muted">BPM</small>
                                     </div>
+                                    <div class="text-muted">
+                                        이 결과는 통계적 추정치이며, 실제 최대 심박수는<br>
+                                        개인마다 다를 수 있습니다.
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -180,18 +186,30 @@
                                     <div class="h3 text-success mb-0">
                                         <span id="hr_goal_value">-</span> <small class="text-muted">BPM</small>
                                     </div>
+                                    <div class="text-muted">
+                                        이 심박수가 유지되는 강도로 45분-60분<br>
+                                        지속해주세요.
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- 경고문 -->
-            <div class="row justify-content-center my-5 text-muted">
-                운동선수나 고령자 등의 경우 단순 추정치는 부정확할 확률이 높으므로, 정확한 데이터를 원한다면 실제 부하 검사(VO2 Max 테스트 등)를 통해 최대 심박수를 측정해야 합니다.
-            </div>
         </div>
+    </div>
+
+    <!-- 푸터 -->
+    <div class="container">
+        <footer class="py-3 my-4">
+            <div class="d-flex justify-content-center border-bottom pb-3 mb-3 text-muted align-items-center">
+                <i class="bi bi-exclamation-triangle-fill me-2 text-warning"></i>
+                <span class="text-center">운동전 의사의 지침이 필요한 대상(예: 심장병, 신부전 등), 고령자, 운동선수 등의 대상자는 이 방법의 적용이 어렵습니다.</span>
+            </div>
+            <p class="text-center text-body-secondary">
+                © <script>document.write(new Date().getFullYear())</script> 태선생운동건강연구원. All rights reserved.
+            </p>
+        </footer>
     </div>
 
 <!-- Bootstrap js -->

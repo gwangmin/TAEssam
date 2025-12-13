@@ -17,6 +17,8 @@
     <script type="text/javascript" src="../common/hr.js"></script>
     <!-- Bootstrap css -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
     <!-- 네비게이션 바 -->
@@ -163,6 +165,9 @@
                                     <div class="h3 text-primary mb-0">
                                         <span id="hr_max_value">-</span> <small class="text-muted">BPM</small>
                                     </div>
+                                    <div class="text-muted">
+                                        This result is a statistical estimate, and actual maximum heart rate may vary from person to person.
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -177,17 +182,29 @@
                                     <div class="h3 text-success mb-0">
                                         <span id="hr_goal_value">-</span> <small class="text-muted">BPM</small>
                                     </div>
+                                    <div class="text-muted">
+                                        Maintain this heart rate intensity for 45 to 60 minutes.
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- 경고문 -->
-            <div class="row justify-content-center my-5 text-muted">
-                Simple estimates are likely to be inaccurate for athletes or the elderly. For precise data, please measure your maximum heart rate through an actual stress test (such as a VO2 Max test).
-            </div>
         </div>
+    </div>
+
+    <!-- 푸터 -->
+    <div class="container">
+        <footer class="py-3 my-4">
+            <div class="d-flex justify-content-center border-bottom pb-3 mb-3 text-muted align-items-center">
+                <i class="bi bi-exclamation-triangle-fill me-2 text-warning"></i>
+                <span class="text-center">This method is not suitable for individuals requiring pre-exercise medical guidance (e.g., those with heart disease, kidney failure, etc.), the elderly, or athletes.</span>
+            </div>
+            <p class="text-center text-body-secondary">
+                © <script>document.write(new Date().getFullYear())</script> 태선생운동건강연구원. All rights reserved.
+            </p>
+        </footer>
     </div>
 
 <!-- Bootstrap js -->
