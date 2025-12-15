@@ -57,7 +57,7 @@
                 <!-- 헤더 -->
                 <div class="text-center mb-4">
                     <h2 class="fw-bold text-primary">Heart Rate Calculator</h2>
-                    <p class="text-muted">Enter Your Age And Resting Heart Rate To Calculate Your Target Heart Rate</p>
+                    <p class="text-muted">Calculate your target heart rate for exercise.</p>
                 </div>
 
                 <!-- 입력 정보 -->
@@ -89,7 +89,12 @@
                                                placeholder="Enter Your Resting Heart Rate" min="10" max="200" required>
                                         <span class="input-group-text">BPM</span>
                                     </div>
-                                    <div class="form-text">Typically in the range of 60-100 BPM</div>
+                                    <div class="form-text">Typically in the range of 60-100 BPM
+                                        <a href="https://www.youtube.com/shorts/To5yZRkup20" target="_blank"
+                                            class="ms-1" aria-label="YouTube">
+                                            <i class="bi bi-youtube" style="font-size: 1.2rem; color: red;"></i>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
 
@@ -137,7 +142,8 @@
                             <!-- calc btn -->
                             <div class="text-center">
                                 <button type="button" class="btn btn-primary btn-lg px-5" onclick="calc();">
-                                    <i class="fas fa-calculator me-2"></i>Calculating Your Heart Rate
+                                    <i class="fas fa-calculator me-2"></i>Calculating<br class="d-sm-none">
+                                    Your Heart Rate
                                 </button>
                             </div>
                         </form>
@@ -166,7 +172,7 @@
                                         <span id="hr_max_value">-</span> <small class="text-muted">BPM</small>
                                     </div>
                                     <div class="text-muted">
-                                        This result is a statistical estimate, and actual maximum heart rate may vary from person to person.
+                                        Actual maximum heart rate may vary from person to person.
                                     </div>
                                 </div>
                             </div>
